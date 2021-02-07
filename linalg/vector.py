@@ -1,5 +1,6 @@
 import math
 
+
 class Vector:
     """A three element vector for 3D graphics"""
 
@@ -22,14 +23,14 @@ class Vector:
 
     def __add__(self, other):
         return Vector(self.x + other.x, self.y + other.y, self.z + other.z)
-    
+
     def __sub__(self, other):
         return Vector(self.x - other.x, self.y - other.y, self.z - other.z)
 
     def __mul__(self, other):
         assert not isinstance(other, Vector)
         return Vector(self.x * other, self.y * other, self.z * other)
-    
+
     def __rmul__(self, other):
         return self.__mul__(other)
 
