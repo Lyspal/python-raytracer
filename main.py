@@ -7,28 +7,25 @@ author: Sylvain Laporte
 date: 2021-02-07
 """
 
-from image.image import Image
 from image.color import Color
+from linalg.vector import Vector
+from geometry.point import Point
+from geometry.sphere import Sphere
+from renderer.scene import Scene
+from renderer.engine import RenderEngine
 
 
 def main():
-    WIDTH = 3
-    HEIGHT = 2
-    im = Image(WIDTH, HEIGHT)
-    red = Color(x=1, y=0, z=0)
-    green = Color(x=0, y=1, z=0)
-    blue = Color(x=0, y=0, z=1)
-
-    im.set_pixel(0, 0, red)
-    im.set_pixel(1, 0, green)
-    im.set_pixel(2, 0, blue)
-
-    im.set_pixel(0, 1, red + green)
-    im.set_pixel(1, 1, red + blue + green)
-    im.set_pixel(2, 1, red * 0.001)
+    WIDTH = 320
+    HEIGHT = 200
+    camera = Vector(0, 0, -1)
+    objects = [Sphere(Point(0, 0, 0), 0.5, Color.from_hex("#FF0000"))]
+    scene = Scene(camera, objects, WIDTH, HEIGHT)
+    engine = RenderEngine()
+    image = engine.render(scene)
 
     with open("test.ppm", "w") as img_file:
-        im.write_ppm(img_file)
+        image.write_ppm(img_file)
 
 
 if __name__ == "__main__":
