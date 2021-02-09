@@ -10,6 +10,10 @@ Implementation of the tutorial "Building a Ray Tracer in Python" from Arun Ravin
 - Create simple lights.
 - Run the renderer on multiple processes.
 
-## Known bugs
+## Final result
 
-- No shadow.
+![final result](example_scenes/2balls.png)
+
+## Known issues
+
+- ~~No shadow.~~
