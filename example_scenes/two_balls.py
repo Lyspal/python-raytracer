@@ -5,8 +5,8 @@ from geometry.point import Point
 from geometry.sphere import Sphere
 from linalg.vector import Vector
 
-WIDTH = 320
-HEIGHT = 200
+WIDTH = 960
+HEIGHT = 540
 RENDERED_IMG = "2balls.ppm"
 CAMERA = Vector(0, -0.35, -1)
 OBJECTS = [
