@@ -8,3 +8,8 @@ Implementation of the tutorial "Building a Ray Tracer in Python" from Arun Ravin
 - Create a PPM image.
 - Create an image of 3D spheres.
 - Create simple lights.
+- Run the renderer on multiple processes.
+
+## Known bugs
+
+- No shadow.
