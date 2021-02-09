@@ -7,34 +7,34 @@ author: Sylvain Laporte
 date: 2021-02-07
 """
 
-from image.color import Color
-from linalg.vector import Vector
-from geometry.point import Point
-from geometry.sphere import Sphere
-from renderer.scene import Scene
-from renderer.engine import RenderEngine
-from renderer.light import Light
-from renderer.material import Material
 import argparse
+import importlib
+import os
+
+from renderer.engine import RenderEngine
+from renderer.scene import Scene
 
 
 def main():
     # Parsing command line arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("image_out", help="Path to rendered image")
+    parser.add_argument(
+        "scene", help="Path to scene file (without .py extension)")
     args = parser.parse_args()
+    scn_desc = importlib.import_module(args.scene)
 
-    WIDTH = 320
-    HEIGHT = 200
-    camera = Vector(0, 0, -1)
-    objects = [Sphere(Point(0, 0, 0), 0.5, Material(
-        Color.from_hex("#FF0000")))]
-    lights = [Light(Point(1.5, -0.5, -10.0), Color.from_hex("#FFFFFF"))]
-    scene = Scene(camera, objects, lights, WIDTH, HEIGHT)
+    scene = Scene(
+        scn_desc.CAMERA,
+        scn_desc.OBJECTS,
+        scn_desc.LIGHTS,
+        scn_desc.WIDTH,
+        scn_desc.HEIGHT
+    )
     engine = RenderEngine()
     image = engine.render(scene)
 
-    with open(args.image_out, "w") as img_file:
+    os.chdir(os.path.dirname(os.path.abspath(scn_desc.__file__)))
+    with open(scn_desc.RENDERED_IMG, "w") as img_file:
         image.write_ppm(img_file)
 
 
