@@ -7,3 +7,4 @@ Implementation of the tutorial "Building a Ray Tracer in Python" from Arun Ravin
 - Create a 3D vector class.
 - Create a PPM image.
 - Create an image of 3D spheres.
+- Create simple lights.
