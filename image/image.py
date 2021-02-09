@@ -7,18 +7,26 @@ class Image:
     def set_pixel(self, x, y, color):
         self.pixels[y][x] = color    # Common exchange of x and y in CG
 
-    def write_ppm(self, img_file):
+    def write_ppm(self, img_fileobj):
+        Image.write_ppm_header(
+            img_fileobj, height=self.height, width=self.width)
+        self.write_ppm_raw(img_fileobj)
+
+    @staticmethod
+    def write_ppm_header(img_fileobj, height=None, width=None):
+        """Writes only the header of a PPM file"""
+        img_fileobj.write("P3 {} {}\n255\n".format(width, height))
+
+    def write_ppm_raw(self, img_fileobj):
         def to_byte(c):
             return round(max(min(c * 255, 255), 0))
 
-        # Header
-        img_file.write("P3 {} {}\n255\n".format(self.width, self.height))
         # pixel data
         for row in self.pixels:
             for color in row:
-                img_file.write(
+                img_fileobj.write(
                     "{} {} {} ".format(
                         to_byte(color.x), to_byte(color.y), to_byte(color.z)
                     )
                 )
-            img_file.write("\n")
+            img_fileobj.write("\n")
